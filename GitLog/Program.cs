@@ -9,6 +9,10 @@ using System.Threading.Tasks;
 
 namespace GitLog
 {
+    /*
+     * 功能：使用git的hooks，当提交更改时，会通知到钉钉
+     * 未解决Bug：正则表达式未解决log文字中存在“:”的问题
+     * */
     class Program
     {
         /// <summary>
@@ -74,7 +78,12 @@ namespace GitLog
                 returnMsg = m.ToString();
             }
             string[] info = returnMsg.Split(':');
-            return "项目有新的提交，请及时拉取!\n提交者：\n" + info[1] + "\n提交说明：\n" + info[2];
+            string s = "项目有新的提交，请及时拉取!\n提交者：\n" + info[1] + "\n提交说明：\n";
+            for (int i = 2; i < info.Length; i++)
+            {
+                s += info[i];
+            }
+            return s;
         }
 
         static void PostMsg(string message)
