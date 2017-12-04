@@ -1,0 +1,5 @@
+E:\VS Projects\GitLog\GitLog\bin\Debug\GitLog.exe.config
+E:\VS Projects\GitLog\GitLog\bin\Debug\GitLog.exe
+E:\VS Projects\GitLog\GitLog\bin\Debug\GitLog.pdb
+E:\VS Projects\GitLog\GitLog\obj\Debug\GitLog.exe
+E:\VS Projects\GitLog\GitLog\obj\Debug\GitLog.pdb
