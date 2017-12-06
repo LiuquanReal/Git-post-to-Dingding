@@ -10,8 +10,9 @@ using System.Threading.Tasks;
 namespace GitLog
 {
     /*
-     * 功能：使用git的hooks，当提交更改时，会通知到钉钉
-     * 未解决Bug：正则表达式未解决log文字中存在“:”的问题
+     * 功能：       使用git的hooks，当提交更改时，会通知到钉钉
+     * 未解决Bug：  正则表达式未解决log文字中存在“:”的问题
+     * 注意事项：   具体转码要根据git中设置的log编码去设定（提交编码、输出编码等）
      * */
     class Program
     {
@@ -58,16 +59,24 @@ namespace GitLog
 
             //获取cmd窗口的输出信息
             string output = p.StandardOutput.ReadToEnd();
+            Encoding cmdEncoding = p.StandardOutput.CurrentEncoding;
+            output = EncodingTransfer(output, cmdEncoding);
             p.WaitForExit();//等待程序执行完退出进程
             p.Close();
             return output;
         }
 
+        /// <summary>
+        /// 转码，根据git中设置的编码进行转码
+        /// </summary>
+        /// <param name="str"></param>
+        /// <param name="srcEncoding"></param>
+        /// <returns></returns>
         static string EncodingTransfer(string str,Encoding srcEncoding)
         {
             byte[] bytes = srcEncoding.GetBytes(str);
-            byte[] nbytes = Encoding.Convert(srcEncoding, Encoding.UTF8, bytes);
-            return Encoding.UTF8.GetString(nbytes);
+            //byte[] nbytes = Encoding.Convert(srcEncoding, Encoding.UTF8, bytes);
+            return Encoding.UTF8.GetString(bytes);
         }
 
         static string GitLogFormat(string msg)
