@@ -11,7 +11,7 @@ namespace GitLog
 {
     /*
      * 功能：       使用git的hooks，当提交更改时，会通知到钉钉
-     * 未解决Bug：  正则表达式未解决log文字中存在“:”的问题
+     * 未解决Bug：  正则表达式未解决log文字中存在“:”的问题;信息文本中出现'\'无法发送问题
      * 注意事项：   具体转码要根据git中设置的log编码去设定（提交编码、输出编码等）
      * */
     class Program
@@ -21,7 +21,7 @@ namespace GitLog
         /// </summary>
         static string url = "https://oapi.dingtalk.com/robot/send?access_token=7501e77b96cb28fef0022f01db771abd473b7d0e9a4357b55990cb3c8634c825";
         static void Main(string[] args)
-        { ;
+        {
             string gitLog = GetGitLog();
             PostMsg(GitLogFormat(gitLog));
         }
@@ -82,7 +82,8 @@ namespace GitLog
         static string GitLogFormat(string msg)
         {
             string returnMsg = "";
-            foreach (Match m in Regex.Matches(msg,@"\nLogMessage:[\S\s]*:[\S\s]*"))
+            msg = msg.Replace('\\','/');
+            foreach (Match m in Regex.Matches(@msg,@"\nLogMessage:[\S\s]*:[\S\s]*"))
             {
                 returnMsg = m.ToString();
             }
