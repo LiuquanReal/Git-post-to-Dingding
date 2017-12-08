@@ -12,7 +12,7 @@ namespace GitLog
     /*
      * 功能：       使用git的hooks，当提交更改时，会通知到钉钉
      * 未解决Bug：  正则表达式未解决log文字中存在“:”的问题;信息文本中出现'\'无法发送问题
-     * 注意事项：   具体转码要根据git中设置的log编码去设定（提交编码、输出编码等）
+     * 注意事项：   具体转码要根据git中设置的log编码去设定（提交编码、输出编码等），将cmd的输出编码设置为utf-8
      * */
     class Program
     {
@@ -47,6 +47,7 @@ namespace GitLog
             p.StartInfo.RedirectStandardOutput = true;//由调用程序获取输出信息
             p.StartInfo.RedirectStandardError = true;//重定向标准错误输出
             p.StartInfo.CreateNoWindow = true;//不显示程序窗口
+            p.StartInfo.StandardOutputEncoding = Encoding.UTF8;//设置输出编码为utf8
             p.Start();//启动程序
 
             //向cmd窗口发送输入信息
@@ -60,7 +61,7 @@ namespace GitLog
             //获取cmd窗口的输出信息
             string output = p.StandardOutput.ReadToEnd();
             Encoding cmdEncoding = p.StandardOutput.CurrentEncoding;
-            output = EncodingTransfer(output, cmdEncoding);
+            //output = EncodingTransfer(output, cmdEncoding);
             p.WaitForExit();//等待程序执行完退出进程
             p.Close();
             return output;
