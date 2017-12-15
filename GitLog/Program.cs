@@ -28,7 +28,7 @@ namespace GitLog
 
         static string GetGitLog()
         {
-            string cmd = "git log --pretty=format:\"LogMessage:%an:% s\" -1";
+            string cmd = "git log --pretty=format:\"LogMessage:%an:% s\" -1 --no-merges";
             return RunCMD(cmd);
         }
         /// <summary>
