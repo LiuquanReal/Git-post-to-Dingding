@@ -6,6 +6,7 @@ using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace GitLog
 {
@@ -17,13 +18,15 @@ namespace GitLog
     class Program
     {
         /// <summary>
-        /// 浙江工商群机器人
+        /// 地址需要exe传参
         /// </summary>
-        static string url = "https://oapi.dingtalk.com/robot/send?access_token=7501e77b96cb28fef0022f01db771abd473b7d0e9a4357b55990cb3c8634c825";
+        static string url;
         static void Main(string[] args)
         {
+            url = args[0];
             string gitLog = GetGitLog();
             PostMsg(GitLogFormat(gitLog));
+            //PostMsg(s);
         }
 
         static string GetGitLog()

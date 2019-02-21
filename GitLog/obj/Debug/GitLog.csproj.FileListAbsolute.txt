@@ -3,4 +3,3 @@ E:\VS Projects\GitLog\GitLog\bin\Debug\GitLog.exe
 E:\VS Projects\GitLog\GitLog\bin\Debug\GitLog.pdb
 E:\VS Projects\GitLog\GitLog\obj\Debug\GitLog.exe
 E:\VS Projects\GitLog\GitLog\obj\Debug\GitLog.pdb
-E:\VS Projects\GitLog\GitLog\obj\Debug\GitLog.csprojResolveAssemblyReference.cache
